@@ -1,0 +1,11 @@
+<ng-content></ng-content>
+<ng-container *ngIf="
+    formControlRef?.control?.touched | controltouched: setErrorMessages.bind(this)
+  "></ng-container>
+<ng-container *ngIf="errors$ | async as errors">
+  <div class="" *ngIf="errors.length > 0">
+    <span class="absolute text-xs italic text-red-500 contents text-danger" *ngFor="let error of errors; let idx = index">
+      {{ error }}
+    </span>
+  </div>
+</ng-container>

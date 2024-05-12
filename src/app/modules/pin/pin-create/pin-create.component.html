@@ -1,0 +1,61 @@
+<div class="modal-header">
+  <h4 class="modal-title">Pin Create</h4>
+  
+<button type="button" class="close" aria-label="Close"
+   (click)="closeModal()">
+  </button>
+</div>
+<form [formGroup]="pinFormGroup" (ngSubmit)="onSubmit()">
+  <div class="modal-boy">
+    <div class="container">
+      <div class="form-group">
+        <app-form-validation-errors [fieldName]="'Title'">
+          <label for="title">Title *:</label>
+          <input type="text" class="form-control" id="title" formControlName="title">
+      </app-form-validation-errors>
+      </div>
+      <div class="form-group">
+        <label for="country">Select Image *:</label>
+                  <div class="col-sm-9">
+                    <span class="hidden-file">
+          <input type="file" #fileInput ng2FileSelect [uploader]="uploader" (onFileSelected)="onFileSelected($event)" />
+        </span>
+                    
+                </div>
+      </div>
+      <div class="form-group">
+        <label for="country">Select Collaboratory *:</label>
+        <ngx-select [allowClear]="true"
+        [items]="customers" 
+        [multiple]="true"
+        optionValueField="title" 
+        optionTextField="title"
+        [formControl]="filterCtrl" 
+        (selectionChanges)="doSelectionChanges($event)"
+        placeholder="No Collaboratory selected"></ngx-select>
+        <div *ngIf="filterCtrl.touched && !filterCtrl.value?.length" class="text-danger">
+         Collaboratory is required.
+       </div>
+        
+      </div>
+      <div class="form-group">
+        <label>Privacy:</label><br>
+                    <label>
+                      <input type="radio" formControlName="option" value="private"> private
+                    </label><br>
+                    <label>
+                      <input type="radio" formControlName="option" value="public"> public
+                    </label><br>
+                    <div *ngIf="pinFormGroup.controls['option'].invalid && pinFormGroup.controls['option'].touched" class="text-danger">
+                      Please select an option.
+                    </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-success" type="submit"
+    [disabled]="pinFormGroup.invalid || filterCtrl && !filterCtrl.value?.length">
+      Submit Form
+    </button>
+  </div>
+</form>

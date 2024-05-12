@@ -1,0 +1,95 @@
+<!-- 
+
+<button
+                                    class="btn btn-primary float-right"
+                                    id="add-pin"
+                                    (click)="openPinModal()"
+                                >
+                                    + <span>Pin</span>
+                                </button>
+                                <button
+                                    class="btn btn-primary float-right"
+                                    id="add-customer"
+                                    (click)="openCustomerModal()"
+                                >
+                                    + <span>Customer</span>
+                                </button>
+                                
+<div class="container">
+    <div class="row">
+      <div class="col">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Image</th>
+              <th>Collaboratory</th>
+              <th>Privacy</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let pin of pintList;else commonEmptyBlock">
+              <td>{{ pin.title }}</td>
+              <td><img [src]="pin.fileUrl" alt="Uploaded Image" width="50" height="50"></td>
+              <td>
+                <ul>
+                  <li *ngFor="let customer of pin.customers">{{ customer }}</li>
+                </ul>
+              </td>
+              <td>{{ pin.option }}</td>
+            </tr>
+            <ng-template #commonEmptyBlock>
+                <tr><td>No data found</td></tr>
+            </ng-template>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="container mt-5">
+    <div class="row mb-3">
+        <div class="col">
+            <button class="btn btn-primary float-right" id="add-pin-button" (click)="openPinModal()">
+                + Add Pin
+            </button>
+            <button class="btn btn-primary float-right mr-2" id="add-customer-button" (click)="openCustomerModal()">
+                + Add Customer
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Image</th>
+                    <th>Collaboratory</th>
+                    <th>Privacy</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngIf="pintList && pintList.length > 0; else noData">
+                      <tr *ngFor="let pin of pintList">
+                        <td>{{ pin.title }}</td>
+                        <td *ngIf="pin.fileUrl"><img [src]="pin.fileUrl" alt="Uploaded Image" width="50" height="50" ></td>
+                        <td *ngIf="!pin.fileUrl">{{'N/A'}}</td>
+                        <td>
+                          <ul>
+                            <li *ngFor="let customer of pin.customers">{{ customer }}</li>
+                          </ul>
+                        </td>
+                        <td>{{ pin.option }}</td>
+                      </tr>
+                    </ng-container>
+                    <ng-template #noData>
+                      <tr>
+                        <td colspan="4">No data found</td>
+                      </tr>
+                    </ng-template>
+                  </tbody>
+            </table>
+        </div>
+    </div>
+</div>
